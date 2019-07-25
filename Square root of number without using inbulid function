@@ -1,0 +1,28 @@
+#include <stdio.h>
+int root(int a)
+{
+  int l=0,h=a,mid=0;
+  while(l<=h)
+  {
+    mid=(l+h)/2;
+    if((mid*mid)>a)
+    {
+      h=mid-1;
+    }
+    else if((mid*mid)<a)
+    {
+      l=mid+1;
+    }
+    else
+      return mid;
+  }
+  return h;
+}
+int main()
+{
+  int a;
+  scanf("%d",&a);
+  int n=root(a);
+printf("%d",n);
+  return 0;
+}
