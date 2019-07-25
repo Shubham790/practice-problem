@@ -1,0 +1,41 @@
+#include<stdio.h>
+int main()
+{
+int n,i=0,l=0,r=0,max=0,zero;
+scanf("%d",&n);
+int arr[n];
+for(i=0;i<n;i++)
+{
+scanf("%d",&arr[i]);
+}
+scanf("%d",&zero);
+int z=zero;
+  while(l<n&&r<n)
+  {
+    if(arr[r]==1 && r<n)
+    {
+      r++;
+    }
+    else if(arr[r]==0 && r<n && z>0)
+    {
+       r++;
+       z--;
+    }
+    else
+    {
+      while(arr[l]!=0&&l<=n)
+      {
+        l++;
+      }
+      l++;
+      r=l;
+      z=zero;
+    }
+    if(max<(r-l))
+    {
+      max=r-1;
+    }
+  }
+ printf("%d",max);
+return 0;
+}
