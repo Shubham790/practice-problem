@@ -1,0 +1,54 @@
+#include<stdio.h>
+int fun(int a[],int n,int mid)
+{
+  int sum=0,count=1;
+  for(int i=0;i<n;i++)
+   {
+    if(sum+a[i]>mid)
+    {
+      count++;
+     // sum=a[i];
+    }
+    else
+      sum+=a[i];
+  }
+  return count;
+}
+int main() {
+    int n,stu;
+    scanf("%d",&n);
+    int arr[n];
+    scanf("%d",&stu);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    int l=arr[0];
+    int h=0;
+    for(int i=0;i<n;i++)
+    {
+        if(l<arr[i])
+        {
+            l=arr[i];
+        }
+        h+=arr[i];
+    }
+   while(l<h)
+   {
+     int mid=(l+h)/2;
+   //  printf("%d ",mid);
+     int s=fun(arr,n,mid); //new student  for me......
+     if(s<=stu)
+     {
+       h=mid;
+     }
+     else
+     {
+       l=mid+1;
+	 // printf("%d ",l);
+     }
+   }
+  printf("%d",l);
+    
+	return 0;
+}
