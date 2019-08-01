@@ -1,0 +1,35 @@
+Two pairs of integers (a, b) and (c, d) are considered distinct if at least one element of (a, b) ∉ (c, d). For example given a list (1, 2, 2, 3), (1, 2) is distinct from (1, 3) and (2, 3). A pair is ordered such that a ≤ b.
+
+ 
+
+Given an integer k and a list of integers, count the number of distinct valid pairs of integers (a, b) in the list for which a + k = b.
+
+ 
+
+For example, the array [1, 1, 1, 2] has two different valid pairs: (1, 1) and (1, 2). If k = 1, then this means we have a total of 1 valid pair which satisfies a + k = b ⇒ 1 + 1 = 2, the pair (a, b) = (1, 2).
+
+ 
+
+Function Description 
+
+Complete the function countPairs in the editor below. The function must return an integer that denotes the number of valid (a, b) pairs in the numbers array that have a difference of k.
+
+ 
+
+countPairs has the following parameter(s):
+
+    numbers[numbers[0],...numbers[n-1]]:  an array of integers
+
+    k: an integer
+
+ 
+
+Constraints
+
+    2 ≤ n ≤ 2 × 105
+    0 ≤ numbers[i] ≤ 109, where 0 ≤ i < n
+    0 ≤ k ≤ 109
+
+
+SOLUTION
+
