@@ -1,0 +1,193 @@
+Psychometric testing is designed to find job-relevant information about an applicant that the traditional interview process would not uncover. It typically includes a combination of online aptitude and personality tests that measure cognitive ability and personality traits.
+
+ 
+
+A company has psychometric scores for n candidates, and it will only extend job offers to candidates with scores in the inclusive range given by [lowerLimit, upperLimit]. Given the list of scores and a sequence of score ranges, determine how many candidates the company will extend offers to for each range of scores. For example, if the scores are scores = [1,2,2,3,4] and the limits are 2 and 4, there are 4 candidates, i.e. those with scores [2,2,3,4] that match the conditions.
+
+ 
+Function Description
+
+Complete the jobOffers function in the editor below. The function must return an array of q integers where the value at each index i denotes the number of candidates in the inclusive range [lowerLimits[i], upperLimits[]] that the company will extend offers to.
+
+ 
+
+jobOffers has the following parameter(s):
+
+    scores[scores[0],...scores[n-1]]:  an array of integers
+
+    lowerLimit[lowerLimit[0],...lowerLimit[q-1]]:  an array of integers
+
+    upperLimit[upperLimit[0],...upperLimit[q-1]]:  an array of integers
+
+ 
+
+Constraints
+
+    1 ≤ n ≤ 105
+    1 ≤ scores[j] ≤ 109
+    1 ≤ q ≤ 105
+    1 ≤ lowerLimits[i] ≤ upperLimits[i] ≤ 109
+    
+    
+    
+    Solution
+    
+    #include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+
+
+/*
+ * Complete the function below.
+ * Please store the size of the int array to be returned in result_size pointer. For example,
+ * int a[3] = {1, 2, 3};
+ * *result_size = 3;
+ * return a;
+ * 
+ */
+ int compare(const void *a,const void *b)
+ {
+     return *(int*)a-*(int*)b;
+ }
+ int upper(int arr[], int l, int r, int x) 
+{
+    while(l<r)
+    {
+     int mid=(l+r)/2;
+     if(arr[mid]>x)
+     {
+         r=mid;
+     }  
+     else 
+     {
+         l=mid+1;
+     }
+    }
+    return l;
+
+}
+ int lower(int arr[], int l, int r, int x) 
+{
+    while(l<r)
+    {
+     int mid=(l+r)/2;
+     if(arr[mid]>=x)
+     {
+         r=mid;
+     }  
+     else 
+     {
+         l=mid+1;
+     }
+    }
+    return l;
+
+}
+int* jobOffers(int scores_size, int* scores, int lowerLimits_size, int* lowerLimits, int upperLimits_size, int* upperLimits, int* result_size) {
+    qsort(scores,scores_size,sizeof(int),compare);
+//    qsort(upperLimits,upperLimits_size,sizeof(int),compare);
+int *a=(int*)malloc(sizeof(int)*lowerLimits_size);
+int *up=(int*)malloc(sizeof(int)*upperLimits_size);
+int *lo=(int*)malloc(sizeof(int)*lowerLimits_size);
+int j=0,k=0;
+for(int i=0;i<lowerLimits_size;i++)
+{
+  int l=lower(scores,0,scores_size,lowerLimits[i]);
+ // int u=upper(scores,0,scores_size,upperLimits[i]);
+ // int diff=u-l;
+  lo[k]=l;
+  k++;
+}
+
+for(int i=0;i<upperLimits_size;i++)
+{
+  //int l=lower(scores,0,scores_size,lowerLimits[i]);
+ int u=upper(scores,0,scores_size,upperLimits[i]);
+ // int diff=u-l;
+  up[j]=u;
+  j++;
+}
+int g=0;
+if(j==k||k>j)
+{
+for(int i=0;i<j;i++)
+{
+    int diff=up[i]-lo[i];
+    a[g]=diff;
+    g++;
+}
+}
+else if(k<j)
+{
+for(int i=0;i<k;i++)
+{
+    int diff=up[i]-lo[i];
+    a[g]=diff;
+    g++;
+}
+int su=j-k;
+for(int i=0;i<su;i++)
+{
+    a[g]=0;
+    g++;
+}
+}
+*result_size=g;
+return a;
+}
+int main()
+{
+    FILE *f = stdout;
+    char *output_path = getenv("OUTPUT_PATH");
+    if (output_path) {
+        f = fopen(output_path, "w");
+    }
+
+    int* res;
+int res_size;
+    int scores_size = 0;
+    scanf("%d\n", &scores_size);
+
+    int scores[scores_size];
+    for(int i = 0; i < scores_size; i++) {
+        int scores_item;
+        scanf("%d", &scores_item);
+        scores[i] = scores_item;
+    }
+
+    int lowerLimits_size = 0;
+    scanf("%d\n", &lowerLimits_size);
+
+    int lowerLimits[lowerLimits_size];
+    for(int i = 0; i < lowerLimits_size; i++) {
+        int lowerLimits_item;
+        scanf("%d", &lowerLimits_item);
+        lowerLimits[i] = lowerLimits_item;
+    }
+
+    int upperLimits_size = 0;
+    scanf("%d\n", &upperLimits_size);
+
+    int upperLimits[upperLimits_size];
+    for(int i = 0; i < upperLimits_size; i++) {
+        int upperLimits_item;
+        scanf("%d", &upperLimits_item);
+        upperLimits[i] = upperLimits_item;
+    }
+
+    res = jobOffers(scores_size, scores, lowerLimits_size, lowerLimits, upperLimits_size, upperLimits, &res_size);
+    for (int res_i = 0; res_i < res_size; res_i++) {
+
+        fprintf(f, "%d\n", res[res_i]);
+
+    }
+
+
+    fclose(f);
+    return 0;
+}
+
